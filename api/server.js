@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 sequelize.authenticate()
-    .then(() => console.log('🟢 Connexion à PostgreSQL réussie'))
-    .catch(err => console.error('🔴 Erreur de connexion à PostgreSQL', err));
+    .then(() => console.log('Connexion à PostgreSQL réussie'))
+    .catch(err => console.error('Erreur de connexion à PostgreSQL', err));
 
 app.get('/messages', async (req, res) => {
     try {

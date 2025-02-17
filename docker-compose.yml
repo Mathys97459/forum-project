@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   db:
     image: postgres:latest
@@ -14,6 +16,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
   api:
     build: ./api
     container_name: forum_api
@@ -27,19 +30,30 @@ services:
     env_file:
       - ./api/.env
 
-  app:
-    build: ./app
-    container_name: forum_app
+  thread:
+    build: ./thread
+    container_name: forum_thread
     ports:
-      - "3001:3000"
+      - "80:3000"
     depends_on:
       - api
     networks:
       - internal_network
 
+  sender:
+    build: ./sender
+    container_name: forum_sender
+    ports:
+      - "8080:3000"
+    depends_on:
+      - api
+    networks:
+      - internal_network
 
 networks:
   internal_network:
+    driver: bridge
+  public_network:
     driver: bridge
 
 volumes:
