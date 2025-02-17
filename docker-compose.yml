@@ -27,6 +27,16 @@ services:
     env_file:
       - ./api/.env
 
+  app:
+    build: ./app
+    container_name: forum_app
+    ports:
+      - "3001:3000"
+    depends_on:
+      - api
+    networks:
+      - internal_network
+
 
 networks:
   internal_network:

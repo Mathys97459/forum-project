@@ -8,12 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Test de connexion à la BDD
 sequelize.authenticate()
     .then(() => console.log('🟢 Connexion à PostgreSQL réussie'))
     .catch(err => console.error('🔴 Erreur de connexion à PostgreSQL', err));
 
-// Routes
 app.get('/messages', async (req, res) => {
     try {
         const messages = await Message.findAll({ order: [['created_at', 'DESC']] });
@@ -36,11 +34,9 @@ app.post('/messages', async (req, res) => {
     }
 });
 
-// Démarrer le serveur
 const PORT = 3000;
 app.listen(PORT, async () => {
-    console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`);
+    console.log(`Serveur démarré sur http://localhost:${PORT}`);
 
-    // Synchroniser Sequelize avec la BDD (force:false pour ne pas écraser les données)
     await sequelize.sync({ force: false });
 });
