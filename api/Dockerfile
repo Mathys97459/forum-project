@@ -1,4 +1,3 @@
-# API Dockerfile (dans /api)
 FROM node:18
 
 WORKDIR /app

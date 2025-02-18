@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from 'react';
+import { useRouter } from "next/navigation";
 
 const AddMessage = () => {
   const [pseudonyme, setPseudonyme] = useState('');
   const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +33,7 @@ const AddMessage = () => {
         setMessage('Message ajouté avec succès !');
         setPseudonyme('');
         setContent('');
-        router.push("http://localhost:8080");
+        router.push("http://localhost:80");
       } else {
         setMessage('Erreur lors de l\'ajout du message.');
       }
